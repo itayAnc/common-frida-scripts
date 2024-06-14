@@ -1,9 +1,9 @@
-function clone_clonable(obj)
+function clone_clonable(obj: Java.Wrapper)
 {
     return obj.clone();
 }
 
-function clone_serializable(obj)
+function clone_serializable(obj: Java.Wrapper)
 {
     let objectInputStreamClass = Java.use("java.io.ObjectInputStream");
     let objectOutputStreamClass = Java.use("java.io.ObjectOutputStream");
@@ -24,7 +24,7 @@ function clone_serializable(obj)
     return objectInputStream.readObject();
 }
 
-function serialize_parcelable(obj)
+function serialize_parcelable(obj: Java.Wrapper)
 {
     let parcel = Java.use('android.os.Parcel').obtain();
     obj.writeToParcel(parcel, 0);
@@ -35,7 +35,7 @@ function serialize_parcelable(obj)
     return data;
 }
 
-function parse_parcelable(data, class_name)
+function parse_parcelable(data: by, class_name: string)
 {
     let parcel = Java.use('android.os.Parcel').obtain();
 
