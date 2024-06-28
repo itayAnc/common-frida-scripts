@@ -1,6 +1,6 @@
 const baseExtends = ['eslint:recommended', 'prettier', 'plugin:react/recommended', 'plugin:react-hooks/recommended'];
 
-export {
+module.exports = {
     parser: '@typescript-eslint/parser',
     parserOptions: {
         ecmaVersion: 2020,
