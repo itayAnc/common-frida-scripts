@@ -35,7 +35,7 @@ function serialize_parcelable(obj: Java.Wrapper)
     return data;
 }
 
-function parse_parcelable(data: by, class_name: string)
+function parse_parcelable(data: Uint8Array, class_name: string)
 {
     let parcel = Java.use('android.os.Parcel').obtain();
 
@@ -51,7 +51,7 @@ function parse_parcelable(data: by, class_name: string)
     return Java.cast(obj, original_cls);
 }
 
-function clone_parcelable(obj)
+function clone_parcelable(obj: Java.Wrapper)
 {
     let class_name = obj.getClass().getName();
     let obj_data = serialize_parcelable(obj);
