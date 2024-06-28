@@ -1,10 +1,8 @@
-function clone_clonable(obj: Java.Wrapper)
-{
+function clone_clonable(obj: Java.Wrapper) {
     return obj.clone();
 }
 
-function clone_serializable(obj: Java.Wrapper)
-{
+function clone_serializable(obj: Java.Wrapper) {
     let objectInputStreamClass = Java.use("java.io.ObjectInputStream");
     let objectOutputStreamClass = Java.use("java.io.ObjectOutputStream");
 
@@ -24,8 +22,7 @@ function clone_serializable(obj: Java.Wrapper)
     return objectInputStream.readObject();
 }
 
-function serialize_parcelable(obj: Java.Wrapper)
-{
+function serialize_parcelable(obj: Java.Wrapper) {
     let parcel = Java.use('android.os.Parcel').obtain();
     obj.writeToParcel(parcel, 0);
 
@@ -35,8 +32,7 @@ function serialize_parcelable(obj: Java.Wrapper)
     return data;
 }
 
-function parse_parcelable(data: Uint8Array, class_name: string)
-{
+function parse_parcelable(data: Uint8Array, class_name: string) {
     let parcel = Java.use('android.os.Parcel').obtain();
 
     let original_cls = Java.use(class_name);
@@ -51,10 +47,17 @@ function parse_parcelable(data: Uint8Array, class_name: string)
     return Java.cast(obj, original_cls);
 }
 
-function clone_parcelable(obj: Java.Wrapper)
-{
+function clone_parcelable(obj: Java.Wrapper) {
     let class_name = obj.getClass().getName();
     let obj_data = serialize_parcelable(obj);
 
     return parse_parcelable(obj_data, class_name);
 }
+
+export {
+    clone_clonable,
+    clone_serializable,
+    clone_parcelable,
+    serialize_parcelable,
+    parse_parcelable
+};

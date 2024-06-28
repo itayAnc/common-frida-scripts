@@ -1,5 +1,4 @@
-function print_exception_stack_trace()
-{
+function print_exception_stack_trace() {
     let log_utils_cls = Java.use("android.util.Log");
     let exception_cls = Java.use("java.lang.Exception");
 
@@ -7,8 +6,7 @@ function print_exception_stack_trace()
     console.log(stack_trace_str);
 }
 
-function print_throwable_stack_trace()
-{
+function print_throwable_stack_trace() {
     let PrintWriter = Java.use('java.io.PrintWriter');
     let StringWriter = Java.use('java.io.StringWriter');
     let throwable = Java.use('java.lang.Throwable').$new();
@@ -20,14 +18,14 @@ function print_throwable_stack_trace()
     console.log(sw.toString());
 }
 
-function print_thread_stack_trace()
-{
+function print_thread_stack_trace() {
     let Thread = Java.use('java.lang.Thread');
 
     let currentThread = Thread.currentThread();
     let stackTrace = currentThread.getStackTrace();
 
-    stackTrace.forEach(function(stackTraceElement) {
+    // TODO: repalce this any
+    stackTrace.forEach(function (stackTraceElement: any) {
         let fileName = stackTraceElement.getFileName();
         let className = stackTraceElement.getClassName();
         let methodName = stackTraceElement.getMethodName();
@@ -35,4 +33,10 @@ function print_thread_stack_trace()
 
         console.log(`${className}.${methodName} at ${fileName}:${lineNumber}`);
     });
+}
+
+export {
+    print_exception_stack_trace,
+    print_thread_stack_trace,
+    print_throwable_stack_trace
 }

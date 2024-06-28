@@ -1,13 +1,11 @@
-function file_write_string(file_path, content)
-{
+function file_write_string(file_path: string, content: string | ArrayBuffer | number[]) {
     const file = new File(file_path, 'w');
 
     file.write(content);
     file.close();
 }
 
-function file_read_bytes(file_path)
-{
+function file_read_bytes(file_path: string) {
     const URI = Java.use("java.net.URI");
     const Files = Java.use("java.nio.file.Files");
     const Paths = Java.use("java.nio.file.Paths");
@@ -15,14 +13,12 @@ function file_read_bytes(file_path)
     return Files.readAllBytes(Paths.get(URI.create(`file://${file_path}`)));
 }
 
-function file_read_string(file_path)
-{
+function file_read_string(file_path: string) {
     const fileBytes = file_read_bytes(file_path);
     return String.fromCharCode(...JSON.parse(JSON.stringify(fileBytes)));
 }
 
-function file_write_serializable(serializable, file_path)
-{
+function file_write_serializable(serializable: Java.Wrapper, file_path: string) {
     const File = Java.use("java.io.File");
     const FileOutputStream = Java.use("java.io.FileOutputStream");
     const ObjectOutputStream = Java.use("java.io.ObjectOutputStream");
@@ -35,8 +31,7 @@ function file_write_serializable(serializable, file_path)
     objectOutputStream.close();
 }
 
-function file_read_serializable(file_path)
-{
+function file_read_serializable(file_path: string) {
     const File = Java.use("java.io.File");
     const FileInputStream = Java.use("java.io.FileInputStream");
     const ObjectInputStream = Java.use("java.io.ObjectInputStream");
@@ -49,4 +44,12 @@ function file_read_serializable(file_path)
     objectInputStream.close();
 
     return obj;
+}
+
+export {
+    file_write_string,
+    file_read_bytes,
+    file_read_string,
+    file_write_serializable,
+    file_read_serializable,
 }
